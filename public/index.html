@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz App</title>
+</head>
+<body>
+  <div id="root"></div>
+
+  <!-- Add other necessary scripts here -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/17.0.2/umd/react.development.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.2/umd/react-dom.development.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+  <script type="text/babel">
+    // Add your JavaScript code here
+    // This is where you will mount the QuizApp component to the DOM
+
+    // Define the Certificate component
+    const Certificate = ({ studentName, score }) => {
+      // ... Certificate component code ...
+      return (
+    <div className="certificate">
+      <h2 class="hd">Certificate of Completion</h2>
+      
+      <p id="p1">This is to certify that</p>
+      <h3 id="h3">{studentName}</h3>
+      {/* <img src='download.png'/> */}
+      <p id="p1">has scored {score} marks in the quiz.</p>
+      {/* <p id="p1">for active paticipation in the uiz</p> */}
+    </div>
+  );
+    };
+
+    // Define the QuizApp component
+    const QuizApp = () => {
+      // ... QuizApp component code ...
+      const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [selectedOption, setSelectedOption] = useState('');
+  const [score, setScore] = useState(0);
+  const [submitted, setSubmitted] = useState(false);
+  const [studentName, setStudentName] = useState('');
+  const [showResult, setShowResult] = useState(false);
+
+  const quizData = [
+    {
+      question: 'Question 1: What is the capital of France?',
+      options: ['London', 'Paris', 'Madrid', 'Rome'],
+      answer: 'Paris',
+    },
+    {
+      question: 'Question 2: What is the largest planet in our solar system?',
+      options: ['Earth', 'Jupiter', 'Saturn', 'Mars'],
+      answer: 'Jupiter',
+    },
+    // Add more questions...
+  ];
+
+  const handleOptionSelect = (option) => {
+    setSelectedOption(option);
+  };
+
+  const handleNextQuestion = () => {
+    const currentQuizQuestion = quizData[currentQuestion];
+
+    if (selectedOption === currentQuizQuestion.answer) {
+      setScore(score + 1);
+    }
+
+    setSelectedOption('');
+    if (currentQuestion < quizData.length - 1) {
+      setCurrentQuestion(currentQuestion + 1);
+    } else {
+      setShowResult(true);
+    }
+  };
+  const handleNameChange = (event) => {
+    setStudentName(event.target.value);
+  };
+
+  const handleSubmit = () => {
+    setStudentName('John Doe');
+    setScore(score);
+    setSubmitted(true);
+  };
+
+  const handleRestartQuiz = () => {
+    setCurrentQuestion(0);
+    setSelectedOption('');
+    setSubmitted(false);
+    setScore(0);
+    setShowResult(false);
+  };
+
+  return (
+    <div class="quizapp">
+      <h1 id="h">CC Quiz</h1>
+      {!showResult ? (
+        <div class="final-results">
+          {/* <h1 id="h">CC Quiz</h1> */}
+          <h2 id="questiontxt">{quizData[currentQuestion].question}</h2>
+          <ul>
+            {quizData[currentQuestion].options.map((option, index) => (
+              <li key={index}>
+                <label>
+                  <input
+                    type="radio"
+                    value={option}
+                    checked={selectedOption === option}
+                    onChange={() => handleOptionSelect(option)}
+                  />
+                  {option}
+                </label>
+              </li>
+            ))}
+          </ul>
+          <button onClick={handleNextQuestion}>Next</button>
+        </div>
+      ) : (
+        <div class="no-cert">
+          <h2>Quiz Result</h2>
+          <p>Your Score: {score}</p>
+          {submitted? (
+            <div>
+              {score>0?(
+                <div>
+                <label htmlFor="studentName">Enter your name:</label>
+                <input
+                  type="text"
+                  id="studentName"
+                  value={studentName}
+                  onChange={handleNameChange}
+                />
+              <Certificate studentName={studentName} score={score} />
+              </div>
+              ):(<p>no certificate</p>)}
+              <button onClick={handleRestartQuiz}>Restart</button>
+            </div>
+          ) : (
+            
+            <button onClick={handleSubmit}>Submit Quiz</button>
+            
+          )}
+        </div>
+      )}
+    </div>
+  );
+    };
+
+    // Mount the QuizApp component to the DOM
+    ReactDOM.render(
+      <QuizApp />,
+      document.getElementById('root')
+    );
+  </script>
+</body>
+</html>

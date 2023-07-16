@@ -1,0 +1,43 @@
+.certificate {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 500px;
+    padding: 200px;
+    background-size: 800px 600px;
+    margin: auto;
+    background-image: url('certificate.jpg');
+    background-repeat: no-repeat;
+    font-size: small;
+    text-align: center;
+  }
+  
+  .hd {
+    margin-top: -5px;
+    font-size: 6ch;
+    font-weight: bolder;
+    font-family: 'Times New Roman', Times, serif;
+    color: black;
+    margin-left: -250px;
+    width: 100%;
+  }
+  #p1{
+    margin-top: -5px;
+    font-size: 4ch;
+    font-weight:normal;
+    font-family: 'Times New Roman', Times, serif;
+    color: black;
+    margin-left: -100px;
+    width: 100%;
+  }
+  #h3
+  {
+    margin-top: -5px;
+    font-size: 4ch;
+    font-weight:bolder;
+    font-family: 'Times New Roman', Times, serif;
+    color: black;
+    margin-left: -100px;
+    width: 100%;
+  }
